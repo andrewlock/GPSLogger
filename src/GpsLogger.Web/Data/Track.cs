@@ -9,7 +9,7 @@ namespace GpsLogger.Web.Data
     public class Track
     {
         public Guid TrackId { get; set; }
-        public int ApplicationUserId { get; set; }
+        //public int ApplicationUserId { get; set; }
 
         [Required, StringLength(255)]
         public string Name { get; set; }
@@ -19,9 +19,9 @@ namespace GpsLogger.Web.Data
         public bool IsArchived { get; set; }
 
         public DateTimeOffset DateCreated { get; set; }
-        public DateTimeOffset DateRecordingStopped { get; set; }
+        public DateTimeOffset? DateRecordingStopped { get; set; }
 
-        public ApplicationUser User { get; set; }
+        //public ApplicationUser User { get; set; }
         public ICollection<TrackEvent> Events { get; set; }
     }
 }

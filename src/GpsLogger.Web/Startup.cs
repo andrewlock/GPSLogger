@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using GpsLogger.Web.Data;
 using GpsLogger.Web.Models;
 using GpsLogger.Web.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GpsLogger.Web
 {
@@ -39,7 +40,10 @@ namespace GpsLogger.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

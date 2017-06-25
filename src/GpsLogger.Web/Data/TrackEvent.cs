@@ -10,6 +10,7 @@ namespace GpsLogger.Web.Data
         public Track Track { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset EventTime { get; set; }
+        public DateTimeOffset StartTime { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public decimal? Altitude { get; set; }
