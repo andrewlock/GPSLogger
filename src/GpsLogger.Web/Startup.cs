@@ -46,6 +46,7 @@ namespace GpsLogger.Web
             });
 
             // Add application services.
+            services.AddScoped<TrackService>();
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
@@ -69,7 +70,7 @@ namespace GpsLogger.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            //app.UseIdentity();
 
             app.UseMvc(routes =>
             {

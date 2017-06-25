@@ -15,14 +15,15 @@ namespace GpsLogger.Web.Controllers
             _service = service;
         }
 
-        public IActionResult Log(LogViewModel viewModel)
+        [Route("/log")]
+        public IActionResult CreateEvent(LogViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var startTime = viewModel.Start;
+            var startTime = viewModel.Start.Value;
             var track = _service.GetTrackWithStartTime(startTime);
 
             if(track == null)
@@ -40,12 +41,24 @@ namespace GpsLogger.Web.Controllers
             return Ok();
         }
 
+        [HttpGet("/track")]
+        public IActionResult GetLatestTrack()
+        {
+            var model = _service.GetLatestTrack();
+            if(model == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(model);
+        }
+
         public class LogViewModel
         {
             [Required]
-            public DateTimeOffset Time { get; set; }
+            public DateTimeOffset? Time { get; set; }
             [Required]
-            public DateTimeOffset Start { get; set; }
+            public DateTimeOffset? Start { get; set; }
 
             [Required]
             public decimal? Lat { get; set; }
@@ -74,10 +87,10 @@ namespace GpsLogger.Web.Controllers
                     Accuracy = Acc,
                     Altitude = Alt,
                     CreatedAt = DateTimeOffset.UtcNow,
-                    EventTime = Time,
+                    EventTime = Time.Value,
                     Latitude = Lat.Value,
                     Longitude = Lon.Value,
-                    StartTime = Start,
+                    StartTime = Start.Value,
                     ExtraProperties = JsonConvert.SerializeObject(details),
                 };
             }
@@ -92,7 +105,7 @@ namespace GpsLogger.Web.Controllers
                     IsAccessibleViaDirectLink = true,
                     IsRecording = true,
                     IsArchived = false,
-                    DateCreated = Start,
+                    DateCreated = Start.Value,
                 };
             }
         }
