@@ -58,7 +58,12 @@ namespace GpsLogger.Web.Controllers
             [Required]
             public DateTimeOffset? Time { get; set; }
             [Required]
-            public DateTimeOffset? Start { get; set; }
+            public long? StartEpoch { get; set; }
+            public DateTimeOffset? Start =>
+                StartEpoch.HasValue
+                ? DateTimeOffset.FromUnixTimeSeconds(StartEpoch.Value)
+                : (DateTimeOffset?)null;
+
 
             [Required]
             public decimal? Lat { get; set; }
