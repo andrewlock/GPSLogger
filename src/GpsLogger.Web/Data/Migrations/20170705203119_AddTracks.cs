@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GpsLogger.Web.Data.Migrations
+namespace GpsLogger.Web.Migrations
 {
-    public partial class Removeuserrequirement : Migration
+    public partial class AddTracks : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
