@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject GoogleMapsSettings settings
+@{
     ViewData["Title"] = "View latest track";
 }
 <h3 id="title">@ViewData["Title"]</h3>
@@ -10,5 +11,5 @@
     <script src="~/js/home.min.js"></script>
 </environment>
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=@(settings.ApiKey)&callback=initMap">
 </script>

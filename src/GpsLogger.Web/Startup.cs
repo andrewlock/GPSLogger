@@ -13,6 +13,8 @@ using GpsLogger.Web.Data;
 using GpsLogger.Web.Models;
 using GpsLogger.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
+using Microsoft.Extensions.Options;
 
 namespace GpsLogger.Web
 {
@@ -44,6 +46,9 @@ namespace GpsLogger.Web
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
+            services.Configure<GoogleMapsSettings>(Configuration.GetSection("GoogleMaps"));
+            services.AddSingleton(ctx => ctx.GetService<IOptions<GoogleMapsSettings>>().Value);
 
             // Add application services.
             services.AddScoped<TrackService>();
