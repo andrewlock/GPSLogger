@@ -53,7 +53,6 @@ namespace GpsLogger.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            EnsureDatabaseIsMigrated(app);
             if (env.IsDevelopment())
             {
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -77,6 +76,8 @@ namespace GpsLogger.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            EnsureDatabaseIsMigrated(app);
         }
 
         private static void EnsureDatabaseIsMigrated(IApplicationBuilder app)
