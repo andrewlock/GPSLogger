@@ -53,14 +53,13 @@ namespace GpsLogger.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            EnsureDatabaseIsMigrated(app);
             if (env.IsDevelopment())
             {
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
                 loggerFactory.AddDebug();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-
-                EnsureDatabaseIsMigrated(app);
             }
             else
             {
